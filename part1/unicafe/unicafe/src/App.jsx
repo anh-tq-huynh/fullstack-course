@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const Display = ({text, count}) => {
+const StatisticsLine = ({text, count}) => {
   return (
       <p>{text} {count}</p>
   )
@@ -22,12 +22,12 @@ const Statistics = (props) => {
     return (
         <div>
           <h1>statistics</h1>
-          <Display text="good" count={good} />
-          <Display text="neutral" count={neutral} />
-          <Display text="bad" count={bad} />
-          <Display text= "all" count={totalVote} />
-          <Display text="average" count = {(good*1 + bad*(-1)) / totalVote} />
-          <Display text = "positive" count = {good * 100 / totalVote}/>
+          <StatisticsLine text="good" count={good} />
+          <StatisticsLine text="neutral" count={neutral} />
+          <StatisticsLine text="bad" count={bad} />
+          <StatisticsLine text= "all" count={totalVote} />
+          <StatisticsLine text="average" count = {(good*1 + bad*(-1)) / totalVote} />
+          <StatisticsLine text = "positive" count = {good * 100 / totalVote}/>
         </div>
     )
   }
