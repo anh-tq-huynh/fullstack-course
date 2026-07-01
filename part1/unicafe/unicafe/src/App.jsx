@@ -18,17 +18,28 @@ const Statistics = (props) => {
   const bad = props.bad
   const totalVote = props.totalVote
 
-  return (
-      <div>
-        <h1>statistics</h1>
-        <Display text="good" count={good} />
-        <Display text="neutral" count={neutral} />
-        <Display text="bad" count={bad} />
-        <Display text= "all" count={totalVote} />
-        <Display text="average" count = {(good*1 + bad*(-1)) / totalVote} />
-        <Display text = "positive" count = {good * 100 / totalVote}/>
-      </div>
-  )
+  if (totalVote > 0){
+    return (
+        <div>
+          <h1>statistics</h1>
+          <Display text="good" count={good} />
+          <Display text="neutral" count={neutral} />
+          <Display text="bad" count={bad} />
+          <Display text= "all" count={totalVote} />
+          <Display text="average" count = {(good*1 + bad*(-1)) / totalVote} />
+          <Display text = "positive" count = {good * 100 / totalVote}/>
+        </div>
+    )
+  }
+  else{
+    return (
+        <div>
+          <h1>statistics</h1>
+          <p>No feedback given</p>
+        </div>
+    )
+  }
+
 }
 
 const App = () => {
