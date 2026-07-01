@@ -1,9 +1,22 @@
 import {useState} from "react";
 
 const StatisticsLine = ({text, count}) => {
-  return (
-      <p>{text} {count}</p>
-  )
+  if (text === "positive"){
+    return (
+        <tr>
+          <td>{text}</td>
+          <td>{count} %</td>
+        </tr>
+    )
+  }
+  else{
+    return (
+        <tr>
+          <td>{text}</td>
+          <td>{count}</td>
+        </tr>
+    )
+  }
 }
 
 const Button = ({text, onClick}) => {
@@ -17,18 +30,20 @@ const Statistics = (props) => {
   const neutral = props.neutral
   const bad = props.bad
   const totalVote = props.totalVote
+  const average = (good*1 + bad*(-1)) / totalVote
+  const positive = good * 100 / totalVote
 
   if (totalVote > 0){
     return (
-        <div>
+        <table>
           <h1>statistics</h1>
           <StatisticsLine text="good" count={good} />
           <StatisticsLine text="neutral" count={neutral} />
           <StatisticsLine text="bad" count={bad} />
           <StatisticsLine text= "all" count={totalVote} />
-          <StatisticsLine text="average" count = {(good*1 + bad*(-1)) / totalVote} />
-          <StatisticsLine text = "positive" count = {good * 100 / totalVote}/>
-        </div>
+          <StatisticsLine text="average" count = {average.toFixed(1)} />
+          <StatisticsLine text = "positive" count = {positive.toFixed(1)} />
+        </table>
     )
   }
   else{
