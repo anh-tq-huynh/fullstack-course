@@ -33,8 +33,8 @@ const App = () => {
   }
   return (
       <div>
-        <Button text = "Show anecdote" onClick = {handleBtn} ></Button>
-        <br/>{anecdotes[selected]}
+        {anecdotes[selected]}
+        <br/>  <Button text = "Show anecdote" onClick = {handleBtn} ></Button>
       </div>
   )
 }
