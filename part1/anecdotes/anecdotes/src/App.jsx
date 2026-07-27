@@ -8,6 +8,16 @@ const Button = ({text, onClick}) => {
   )
 }
 
+const Display = ({header, anecdote, vote}) => {
+  return (
+      <div>
+        <h1>{header}</h1>
+        <p>{anecdote}</p>
+        <p>has {vote} votes</p>
+      </div>
+      )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -27,23 +37,41 @@ const App = () => {
   }
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [mostVotes, setMostVotes] = useState({
+    anecdotes: "",
+    votes: 0
+  })
+  const findMostVotes = (currentVote) => {
+    const maxVotes = Math.max(...currentVote)
+    console.log("Max votes: ", maxVotes)
+    const indxMax = currentVote.indexOf(maxVotes)
+    const mostVotedAnecdote = anecdotes[indxMax]
+
+    const newMostVotes = {...mostVotes}
+    newMostVotes.anecdotes = mostVotedAnecdote
+    newMostVotes.votes = maxVotes
+    setMostVotes(newMostVotes)
+  }
+
+  const incrementVotes = () => {
+    const newVotes = [...votes]
+    newVotes[selected] += 1
+    console.log(newVotes)
+    setVotes(newVotes)
+    findMostVotes(newVotes)
+  }
+
   const handleBtn = () =>{
     const anecdoteNum = randomGen(anecdotes)
     console.log(anecdoteNum)
     setSelected(anecdoteNum)
   }
 
-  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
-  const incrementVotes = () => {
-    const newVotes = [...votes]
-    newVotes[selected] += 1
-    console.log(newVotes)
-    setVotes(newVotes)
-  }
   return (
       <div>
-        {anecdotes[selected]}
-        <p>has {votes[selected]} votes</p>
+        <Display header = "Anecdote of the day" anecdote={anecdotes[selected]} vote={votes[selected]}/>
+        <Display header = "Anecdote with most votes" anecdote = {mostVotes.anecdotes} vote = {mostVotes.votes}/>
         <br/>
         <Button text = "Vote" onClick = {incrementVotes}></Button>
         <Button text = "Show anecdote" onClick = {handleBtn} ></Button>
